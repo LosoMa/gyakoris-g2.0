@@ -1,8 +1,14 @@
 import random as rr
 
 
-def isPerfect():
-    pass
+def isPerfect(n):
+    divnumbers = [1]
+    for i in range(2, n, 1):
+        if n %i == 0:
+            divnumbers.append(i)
+    
+    return sum(divnumbers) == n
+            
 
 #def makeNumber(n) :
     #try:
@@ -27,7 +33,7 @@ def rrGenerator(s,e,a):
     numbers = []
     for i in range(a):
         numbers.append(rr.randint(s,e))
-        return numbers
+    return numbers
 
 
 
@@ -43,7 +49,8 @@ def makeNumber2(text):
         except ValueError:
             print("Helytelen érték.")
             
-
+perfectnumbers = []
+perfectnumfrq = {}
 startMeassage = "Kezdőérték: "
 endMassage = "Végérték: "
 ammountMassage = "Értékek száma: "
@@ -51,3 +58,18 @@ ammountMassage = "Értékek száma: "
 start = makeNumber2(startMeassage)
 end = makeNumber2(endMassage)
 ammount = makeNumber2(ammountMassage)
+
+RN = rrGenerator(start, end, ammount)
+
+for num in RN:
+    if isPerfect(num):
+        perfectnumbers.append(num)
+        
+for num in perfectnumbers:
+    if num in perfectnumfrq.keys():
+        perfectnumfrq[num] +=1
+    else:
+        perfectnumfrq[num] =1
+        
+for key in perfectnumfrq:
+    print(f"{key}: {perfectnumfrq[key]} db")
